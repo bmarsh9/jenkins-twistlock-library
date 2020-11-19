@@ -3,8 +3,7 @@
 def call(Map options) {
     def imageName = options.get("imageName",false)
     def outputFile = options.get("outputFile","prisma-cloud-scan-results.json")
-    node {
-        stage("Scan Image") {
+    stage("Scan Image") {
             steps {
                 prismaCloudScanImage ca: '',
                 cert: '',
@@ -17,11 +16,10 @@ def call(Map options) {
                 resultsFile: outputFile,
                 ignoreImageBuildTime:true
             }
-        }
-        stage('Generate Report') {
+    }
+    stage('Generate Report') {
             steps {
               sh 'echo generating report'
             }
-        }
     }
 }
