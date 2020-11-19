@@ -1,9 +1,8 @@
 //import org.example.Constants
 
 def call(Map options) {
-    def imageName = options.get("imageName",false)
-    def outputFile = options.get("outputFile","prisma-cloud-scan-results.json")
-    steps {
+                def imageName = options.get("imageName",false)
+                def outputFile = options.get("outputFile","prisma-cloud-scan-results.json")
                 prismaCloudScanImage ca: '',
                 cert: '',
                 dockerAddress: 'unix:///var/run/docker.sock',
@@ -14,6 +13,5 @@ def call(Map options) {
                 project: '',
                 resultsFile: outputFile,
                 ignoreImageBuildTime:true
-    }
 }
 
