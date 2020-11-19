@@ -5,7 +5,6 @@ def call(Map options) {
     def outputFile = options.get("outputFile","prisma-cloud-scan-results.json")
     node {
         stage("Scan Image") {
-            steps {
                 prismaCloudScanImage ca: '',
                 cert: '',
                 dockerAddress: 'unix:///var/run/docker.sock',
@@ -16,12 +15,9 @@ def call(Map options) {
                 project: '',
                 resultsFile: outputFile,
                 ignoreImageBuildTime:true
-            }
         }
-        stage('Generate Report') {
-            steps {
-              sh 'echo generating report'
-            }
+        stage ("Report") {
+          sh 'testing the output'
         }
     }
 }
