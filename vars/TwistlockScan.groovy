@@ -1,18 +1,20 @@
-import org.example.Constants
+//import org.example.Constants
 
-def call(Map config=[:]) {
+def call(Map options) {
+    def imageName = options.get("imageName",false)
+    def outputFile = options.get("outputFile","prisma-cloud-scan-results.json")
     node {
         stage("Scan Image") {
             steps {
                 prismaCloudScanImage ca: '',
                 cert: '',
                 dockerAddress: 'unix:///var/run/docker.sock',
-                image: config.image,
+                image: imageName,
                 key: '',
                 logLevel: 'debug',
                 podmanPath: '',
                 project: '',
-                resultsFile: Constants.TWISTLOCK_FILE_OUTPUT,
+                resultsFile: outputFile,
                 ignoreImageBuildTime:true
             }
         }
