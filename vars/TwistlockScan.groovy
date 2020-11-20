@@ -12,5 +12,8 @@ def call(Map options) {
       project: '',
       resultsFile: outputFile,
       ignoreImageBuildTime:true
+
+    prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+
 }
 
