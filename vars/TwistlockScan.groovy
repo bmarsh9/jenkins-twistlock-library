@@ -18,7 +18,7 @@ def call(Map options) {
     // Get prisma results json file in workspace
     def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
 
-    if (fileExists("${prismaOutput}")) {
+    if (fileExists("${env:WORKSPACE}/${outputFile}")) {
 
         // Publish results to dash
         prismaCloudPublish resultsFilePattern: "${outputFile}"
@@ -37,7 +37,7 @@ def call(Map options) {
         }
         echo "${message_output}"
     } else {
-        echo "Prisma Cloud file:${outputFile} does not exist. Scan likely failed."
+        echo "[WARNING] Prisma Cloud file: ${outputFile} does not exist. Scan likely failed."
     }
 
     
