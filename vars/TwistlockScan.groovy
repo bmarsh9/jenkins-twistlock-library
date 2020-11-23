@@ -17,6 +17,10 @@ def call(Map options) {
       resultsFile: outputFile,
       ignoreImageBuildTime:true
 
+    if (fileExists("${env:WORKSPACE}/k8s/base/deployment.yaml")) {
+      echo "GOT K8 FILE"
+    }
+
     if (fileExists("${env:WORKSPACE}/${outputFile}")) {
 
         // Get prisma results json file in workspace
