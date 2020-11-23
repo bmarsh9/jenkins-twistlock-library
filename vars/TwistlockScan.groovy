@@ -13,7 +13,7 @@ def call(Map options) {
       resultsFile: outputFile,
       ignoreImageBuildTime:true
 
-    prismaCloudPublish resultsFilePattern: '${outputFile}'
+    prismaCloudPublish resultsFilePattern: "${outputFile}"
 
     def reportUrl = "${BUILD_URL}imageVulnerabilities"
     def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
@@ -21,7 +21,7 @@ def call(Map options) {
     def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
 
     dataMap.test = "mytest"
-    dataMap.jenkinsReportUrl = reportUrl
+    dataMap.jenkinsReportUrl = reportUrl.toString()
 
     echo dataMap.toString()
 
