@@ -29,12 +29,12 @@ def call(Map options) {
 
     if (humanize) {
         echo "human"
-        def message_output = "Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
+        message_output = "Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
         echo "${message_output}"
         echo "after"
     } else {
         echo "json output"
-        def message_output = dataMap.toString()
+        message_output = dataMap.toString()
     }
     echo "${message_output}"
 
