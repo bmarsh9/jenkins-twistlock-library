@@ -36,7 +36,7 @@ def call(Map options) {
                 High: ${dataMap.high} |
                 Medium: ${dataMap.medium} |
                 Low: ${dataMap.low} |
-                Link to Report: ${dataMap.jenkinsReportUrl}"""
+                Link to Report: ${dataMap.jenkinsReportUrl}""".stripIndent()
         } else {
             message_output = dataMap.toString()
         }
