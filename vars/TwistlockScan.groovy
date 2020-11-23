@@ -15,5 +15,6 @@ def call(Map options) {
 
     prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
 
+    echo "${BUILD_URL}imageVulnerabilities"
 }
 
