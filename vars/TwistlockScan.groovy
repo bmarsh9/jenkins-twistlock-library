@@ -31,12 +31,12 @@ def call(Map options) {
         dataMap.jenkinsReportUrl = reportUrl.toString()
 
         if (humanize) {
-            message_output = """Total vulns: ${dataMap.total} |
-                Critical: ${dataMap.critical} |
-                High: ${dataMap.high} |
-                Medium: ${dataMap.medium} |
-                Low: ${dataMap.low} |
-                Link to Report: ${dataMap.jenkinsReportUrl}""".stripIndent()
+            message_output = """[Twistlock] Total vulns: ${dataMap.total}
+                | Critical: ${dataMap.critical}
+                |High: ${dataMap.high}
+                |Medium: ${dataMap.medium}
+                |Low: ${dataMap.low}
+                |Link to Report: ${dataMap.jenkinsReportUrl}""".stripMargin()
         } else {
             message_output = dataMap.toString()
         }
