@@ -18,7 +18,10 @@ def call(Map options) {
       ignoreImageBuildTime:true
 
     if (fileExists("${env:WORKSPACE}/k8s/base/deployment.yaml")) {
-      echo "GOT K8 FILE"
+      echo "HAAAAAAAAAAAAA"
+      def lines = new File("${env:WORKSPACE}/k8s/base/deployment.yaml").readLines()
+      def result = lines.findAll { it.contains('spec') }
+      println result*.toString()
     }
 
     if (fileExists("${env:WORKSPACE}/${outputFile}")) {
