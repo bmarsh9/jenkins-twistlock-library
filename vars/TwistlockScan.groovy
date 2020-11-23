@@ -2,6 +2,7 @@ def call(Map options) {
     def imageName = options.get("imageName",false)
     def humanize = options.get("humanize",true)
     def outputFile = options.get("outputFile","prisma-cloud-scan-results.json")
+    def message_output = "None"
 
     prismaCloudScanImage ca: '',
       cert: '',
