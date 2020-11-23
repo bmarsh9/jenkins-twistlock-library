@@ -19,7 +19,7 @@ def call(Map options) {
     def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
 
     def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
-    dataMap["jenkinsReportUrl"] = "${BUILD_URL}imageVulnerabilities"
+    //dataMap.jenkinsReportUrl = "${BUILD_URL}imageVulnerabilities"
 
     echo dataMap
 
