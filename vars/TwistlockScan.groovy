@@ -4,6 +4,7 @@ def call(Map options) {
     def outputFile = options.get("outputFile","prisma-cloud-scan-results.json")
     def message_output = "None"
 
+    // Scan image
     prismaCloudScanImage ca: '',
       cert: '',
       dockerAddress: 'unix:///var/run/docker.sock',
@@ -23,12 +24,10 @@ def call(Map options) {
         // Publish results to dash
         prismaCloudPublish resultsFilePattern: "${outputFile}"
 
-        // Get URL of report in Jenkins
-        def reportUrl = "${BUILD_URL}imageVulnerabilities"
-
-        // Create dict off vulnerability data
         def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
-        dataMap.jenkinsReportUrl = reportUrl.toString()
+
+        // Get url of report in jenkins
+        dataMap.jenkinsReportUrl = "${BUILD_URL}imageVulnerabilities".toString()
 
         if (humanize) {
             message_output = "[TWISTLOCK] Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
