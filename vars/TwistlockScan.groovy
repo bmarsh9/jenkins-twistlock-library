@@ -21,7 +21,7 @@ def call(Map options) {
       echo "HAAAAAAAAAAAAA"
       def lines = new File("${env:WORKSPACE}/k8s/base/deployment.yaml").readLines()
       def result = lines.findAll { it.contains('spec') }
-      println result*.toString()
+      echo "${result}"
     }
 
     if (fileExists("${env:WORKSPACE}/${outputFile}")) {
