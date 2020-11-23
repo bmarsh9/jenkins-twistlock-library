@@ -32,7 +32,7 @@ def call(Map options) {
 
         if (humanize) {
             message_output = """[Twistlock] Total vulns: ${dataMap.total}
-                | Critical: ${dataMap.critical}
+                |Critical: ${dataMap.critical}
                 |High: ${dataMap.high}
                 |Medium: ${dataMap.medium}
                 |Low: ${dataMap.low}
@@ -40,13 +40,9 @@ def call(Map options) {
         } else {
             message_output = dataMap.toString()
         }
-        echo "${message_output}"
+        return "${message_output}"
     } else {
-        echo "[WARNING] Prisma Cloud file: ${outputFile} does not exist. Scan likely failed."
+        return "[WARNING] Prisma Cloud file: ${outputFile} does not exist. Scan likely failed."
     }
-
-    
-    //echo dataMap.toString()
-
 }
 
