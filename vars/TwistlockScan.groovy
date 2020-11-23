@@ -15,28 +15,30 @@ def call(Map options) {
       resultsFile: outputFile,
       ignoreImageBuildTime:true
 
-    prismaCloudPublish resultsFilePattern: "${outputFile}"
-
-    // Get URL of report in Jenkins
-    def reportUrl = "${BUILD_URL}imageVulnerabilities"
-
     // Get prisma results json file in workspace
     def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
 
-    // Create dict off vulnerability data
-    def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
-    dataMap.jenkinsReportUrl = reportUrl.toString()
+    if (fileExists("${prismaOutput})) {
 
-    if (humanize) {
-        echo "human"
-        message_output = "Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
+        // Publish results to dash
+        prismaCloudPublish resultsFilePattern: "${outputFile}"
+
+        // Get URL of report in Jenkins
+        def reportUrl = "${BUILD_URL}imageVulnerabilities"
+
+        // Create dict off vulnerability data
+        def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
+        dataMap.jenkinsReportUrl = reportUrl.toString()
+
+        if (humanize) {
+            message_output = "Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
+        } else {
+            message_output = dataMap.toString()
+        }
         echo "${message_output}"
-        echo "after"
     } else {
-        echo "json output"
-        message_output = dataMap.toString()
+        echo "Prisma Cloud file:${outputFile} does not exist. Scan likely failed."
     }
-    echo "${message_output}"
 
     
     //echo dataMap.toString()
