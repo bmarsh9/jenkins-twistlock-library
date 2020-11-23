@@ -18,6 +18,6 @@ def call(Map options) {
     echo "${BUILD_URL}imageVulnerabilities"
     def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
 
-    echo prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]    
+    echo prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"].toString()
 }
 
