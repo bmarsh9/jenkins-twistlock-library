@@ -16,10 +16,10 @@ def call(Map options) {
       resultsFile: outputFile,
       ignoreImageBuildTime:true
 
-    // Get prisma results json file in workspace
-    def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
-
     if (fileExists("${env:WORKSPACE}/${outputFile}")) {
+
+        // Get prisma results json file in workspace
+        def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
 
         // Publish results to dash
         prismaCloudPublish resultsFilePattern: "${outputFile}"
