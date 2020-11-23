@@ -16,6 +16,8 @@ def call(Map options) {
     prismaCloudPublish resultsFilePattern: '${outputFile}'
 
     echo "${BUILD_URL}imageVulnerabilities"
-    echo "${env:WORKSPACE}/${outputFile}"
+    def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
+
+    echo prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]    
 }
 
