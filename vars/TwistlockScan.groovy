@@ -13,8 +13,9 @@ def call(Map options) {
       resultsFile: outputFile,
       ignoreImageBuildTime:true
 
-    prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
+    prismaCloudPublish resultsFilePattern: '${outputFile}'
 
     echo "${BUILD_URL}imageVulnerabilities"
+    echo "${env:WORKSPACE}/${outputFile}"
 }
 
