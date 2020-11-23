@@ -15,9 +15,17 @@ def call(Map options) {
 
     prismaCloudPublish resultsFilePattern: '${outputFile}'
 
-    echo "${BUILD_URL}imageVulnerabilities"
+    //def "${BUILD_URL}imageVulnerabilities"
     def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
 
-    echo prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"].toString()
+    def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
+    dataMap["jenkinsReportUrl"] = "${BUILD_URL}imageVulnerabilities"
+
+    echo dataMap
+
+    //echo prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"].toString()
+
+    //def dataMap = [:]
+    
 }
 
