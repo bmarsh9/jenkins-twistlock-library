@@ -2,6 +2,7 @@ def call(Map options) {
     def imageName = options.get("imageName",false)
     def humanize = options.get("humanize",true)
     def outputFile = options.get("outputFile","prisma-cloud-scan-results.json")
+    def verbose = options.get("verbose",false)
     def message_output = "None"
 
     // Scan image
@@ -34,9 +35,17 @@ def call(Map options) {
         } else {
             message_output = dataMap.toString()
         }
+        if (verbose) {
+            echo "${message_output}"
+        }
         return "${message_output}"
     } else {
-        return "[WARNING] Prisma Cloud file: ${outputFile} does not exist. Scan likely failed."
+        message_output = "[WARNING] Prisma Cloud file: ${outputFile} does not exist. Scan likely failed."
+        if (verbose) {
+            echo "${message_output}"
+        }
+        return "${message_output}"
+
     }
 }
 
