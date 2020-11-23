@@ -18,7 +18,7 @@ def call(Map options) {
     // Get prisma results json file in workspace
     def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
 
-    if (fileExists("${prismaOutput})) {
+    if (fileExists("${prismaOutput}")) {
 
         // Publish results to dash
         prismaCloudPublish resultsFilePattern: "${outputFile}"
