@@ -27,7 +27,7 @@ def call(Map options) {
     dataMap.jenkinsReportUrl = reportUrl.toString()
 
     if (humanize) {
-        def message = "Total vulns: ${dataMap.total} | Critical: ${datamap.critical} | High: ${datamap.high} | Medium: ${datamap.medium} | Low: ${datamap.low} | Link to Report: ${datamap.jenkinsReportUrl}"
+        def message = "Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
     } else {
         def message = dataMap.toString()
     }
