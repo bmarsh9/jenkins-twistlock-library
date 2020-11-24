@@ -28,6 +28,7 @@ def call(Map options) {
 
     // Parse Prisma Cloud image scan
     if (fileExists("${env:WORKSPACE}/${outputFile}")) {
+        sh "chmod 777 ${outputFile}"
 
         // Get prisma results json file in workspace
         def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
