@@ -50,6 +50,7 @@ def call(Map options) {
         if (verbose) {
             echo "${message_output}"
         }
+        pullRequest.comment("test test")
         return "${message_output}"
     } else {
         message_output = "[TWISTLOCK:WARNING] Prisma Cloud file: ${outputFile} does not exist. Scan likely failed."
