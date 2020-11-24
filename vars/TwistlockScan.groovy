@@ -19,9 +19,14 @@ def call(Map options) {
 
     if (fileExists("${env:WORKSPACE}/k8s/base/deployment.yaml")) {
       echo "HAAAAAAAAAAAAA"
-      def lines = new File("${env:WORKSPACE}/k8s/base/deployment.yaml").readLines()
-      def result = lines.findAll { it.contains('spec') }
-      echo "${result}"
+      def k8_file = "${env:WORKSPACE}/k8s/base/deployment.yaml"
+      def k8_yaml = readYaml file: "${k8_file}"
+      def k8_json = new JsonBuilder(k8_yaml).toPrettyString()
+      echo k8_json
+
+      //def lines = new File("${k8_file}").readLines()
+      //def result = lines.findAll { it.contains('spec') }
+      //echo "${result}"
     }
 
     if (fileExists("${env:WORKSPACE}/${outputFile}")) {
