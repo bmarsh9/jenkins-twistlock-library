@@ -1,4 +1,4 @@
-import groovy.json.*
+//import groovy.json.*
 
 def call(Map options) {
     def imageName = options.get("imageName",false)
@@ -19,18 +19,14 @@ def call(Map options) {
       resultsFile: outputFile,
       ignoreImageBuildTime:true
 
-    if (fileExists("${env:WORKSPACE}/k8s/base/deployment.yaml")) {
-      echo "HAAAAAAAAAAAAA"
-      def k8_file = "${env:WORKSPACE}/k8s/base/deployment.yaml"
-      def k8_yaml = readYaml file: "${k8_file}"
-      def k8_json = new JsonBuilder(k8_yaml).toPrettyString()
-      echo k8_json
+    // TODO: Send to Prisma for IaC eval or run regex on the file
+    //def k8_file = "${env:WORKSPACE}/k8s/base/deployment.yaml"
+    //if (fileExists("${k8_file}")) {
+      //def k8_yaml = readYaml file: "${k8_file}"
+      //def k8_json = new JsonBuilder(k8_yaml).toPrettyString()
+    //}
 
-      //def lines = new File("${k8_file}").readLines()
-      //def result = lines.findAll { it.contains('spec') }
-      //echo "${result}"
-    }
-
+    // Parse Prisma Cloud image scan
     if (fileExists("${env:WORKSPACE}/${outputFile}")) {
 
         // Get prisma results json file in workspace
@@ -45,7 +41,7 @@ def call(Map options) {
         dataMap.jenkinsReportUrl = "${BUILD_URL}imageVulnerabilities".toString()
 
         if (humanize) {
-            message_output = "[TWISTLOCK] Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
+            message_output = "[TWISTLOCK:INFO] Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
         } else {
             message_output = dataMap.toString()
         }
@@ -54,7 +50,7 @@ def call(Map options) {
         }
         return "${message_output}"
     } else {
-        message_output = "[WARNING] Prisma Cloud file: ${outputFile} does not exist. Scan likely failed."
+        message_output = "[TWISTLOCK:WARNING] Prisma Cloud file: ${outputFile} does not exist. Scan likely failed."
         if (verbose) {
             echo "${message_output}"
         }
