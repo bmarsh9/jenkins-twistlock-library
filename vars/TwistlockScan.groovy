@@ -1,3 +1,5 @@
+import groovy.json.*
+
 def call(Map options) {
     def imageName = options.get("imageName",false)
     def humanize = options.get("humanize",true)
