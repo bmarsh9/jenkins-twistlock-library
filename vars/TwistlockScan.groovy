@@ -37,11 +37,12 @@ def call(Map options) {
 
         def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
 
-        // Get url of report in jenkins
+        // Get url of report in jenkins and build status
         dataMap.jenkinsReportUrl = "${BUILD_URL}imageVulnerabilities".toString()
+        dataMap.pass = prismaOutput[0]["pass"].toString()
 
         if (humanize) {
-            message_output = "[TWISTLOCK:INFO] Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
+            message_output = "[TWISTLOCK:INFO] Pass: ${dataMap.pass} | Total vulns: ${dataMap.total} | Critical: ${dataMap.critical} | High: ${dataMap.high} | Medium: ${dataMap.medium} | Low: ${dataMap.low} | Link to Report: ${dataMap.jenkinsReportUrl}"
         } else {
             message_output = dataMap.toString()
         }
