@@ -34,7 +34,7 @@ def call(Map options) {
         def prismaOutput = readJSON file: "${outputFile}"
 
         // Publish results to dash
-        prismaCloudPublish resultsFilePattern: "${outputFile}"
+        prismaCloudPublish(resultsFilePattern: "${outputFile}")
 
         def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
 
