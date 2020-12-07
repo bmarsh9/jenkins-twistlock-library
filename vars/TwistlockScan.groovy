@@ -28,10 +28,10 @@ def call(Map options) {
     //}
 
     // Parse Prisma Cloud image scan
-    if (fileExists("${env.WORKSPACE}/${outputFile}")) {
+    if (fileExists("${outputFile}")) {
 
         // Get prisma results json file in workspace
-        def prismaOutput = readJSON file: "${env.WORKSPACE}/${outputFile}"
+        def prismaOutput = readJSON file: "${outputFile}"
 
         // Publish results to dash
         prismaCloudPublish resultsFilePattern: "${outputFile}"
