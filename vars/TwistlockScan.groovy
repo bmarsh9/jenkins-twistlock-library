@@ -39,7 +39,7 @@ def call(Map options) {
         def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
 
         // Get url of report in jenkins and build status
-        dataMap.jenkinsReportUrl = "${BUILD_URL}imageVulnerabilities"
+        dataMap.jenkinsReportUrl = "${BUILD_URL}imageVulnerabilities".toString()
         dataMap.pass = prismaOutput[0]["pass"].toString()
 
         if (humanize) {
