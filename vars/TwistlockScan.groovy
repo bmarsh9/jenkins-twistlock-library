@@ -8,7 +8,7 @@ def call(Map options) {
     def message_output = "None"
 
     // Scan image
-    prismaCloudScanImage ca: '',
+    prismaCloudScanImage(ca: '',
       cert: '',
       dockerAddress: 'unix:///var/run/docker.sock',
       image: imageName,
@@ -18,6 +18,7 @@ def call(Map options) {
       project: '',
       resultsFile: outputFile,
       ignoreImageBuildTime:true
+    )
 
     // TODO: Send to Prisma for IaC eval or run regex on the file
     //def k8_file = "${env:WORKSPACE}/k8s/base/deployment.yaml"
@@ -27,11 +28,10 @@ def call(Map options) {
     //}
 
     // Parse Prisma Cloud image scan
-    if (fileExists("${env:WORKSPACE}/${outputFile}")) {
-        sh "chmod 777 ${outputFile}"
+    if (fileExists("${env.WORKSPACE}/${outputFile}")) {
 
         // Get prisma results json file in workspace
-        def prismaOutput = readJSON file: "${env:WORKSPACE}/${outputFile}"
+        def prismaOutput = readJSON file: "${env.WORKSPACE}/${outputFile}"
 
         // Publish results to dash
         prismaCloudPublish resultsFilePattern: "${outputFile}"
@@ -39,7 +39,7 @@ def call(Map options) {
         def dataMap = prismaOutput[0]["entityInfo"]["vulnerabilityDistribution"]
 
         // Get url of report in jenkins and build status
-        dataMap.jenkinsReportUrl = "${BUILD_URL}imageVulnerabilities".toString()
+        dataMap.jenkinsReportUrl = "${BUILD_URL}imageVulnerabilities"
         dataMap.pass = prismaOutput[0]["pass"].toString()
 
         if (humanize) {
@@ -48,15 +48,15 @@ def call(Map options) {
             message_output = dataMap.toString()
         }
         if (verbose) {
-            echo "${message_output}"
+            echo message_output
         }
-        return "${message_output}"
+        return message_output
     } else {
         message_output = "[TWISTLOCK:WARNING] Prisma Cloud file: ${outputFile} does not exist. Scan likely failed."
         if (verbose) {
-            echo "${message_output}"
+            echo message_output
         }
-        return "${message_output}"
+        return message_output
 
     }
 }
