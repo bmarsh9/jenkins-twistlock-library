@@ -9,9 +9,10 @@ def call(Map options) {
 
     // Scan image
     prismaCloudScanImage(ca: '',
-      image: imageName,
-      resultsFile: outputFile,
-      ignoreImageBuildTime:true
+        image: imageName,
+        logLevel: 'debug',
+        resultsFile: outputFile,
+        ignoreImageBuildTime:true
     )
 
     // TODO: Send to Prisma for IaC eval or run regex on the file
