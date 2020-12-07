@@ -9,13 +9,7 @@ def call(Map options) {
 
     // Scan image
     prismaCloudScanImage(ca: '',
-      cert: '',
-      dockerAddress: 'unix:///var/run/docker.sock',
       image: imageName,
-      key: '',
-      logLevel: 'debug',
-      podmanPath: '',
-      project: '',
       resultsFile: outputFile,
       ignoreImageBuildTime:true
     )
